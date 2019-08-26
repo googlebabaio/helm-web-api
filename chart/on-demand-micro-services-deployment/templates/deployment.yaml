@@ -24,6 +24,10 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ required "registry name is required" .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+          - mountPath: /root/.kube/config
+            subPath: config
+            name: helm-kubeconfig
           ports:
             - name: http
               containerPort: 4002
@@ -39,3 +43,7 @@ spec:
             value: {{ .Values.ingress.ingressLabel }}
           - name: TILLER_SERVICE_ACCOUNT
             value: {{ .Values.rbac.tillerServiceAccount }}
+      volumes:
+      - name: helm-kubeconfig
+        configMap:
+          name: kube-config-4-helm

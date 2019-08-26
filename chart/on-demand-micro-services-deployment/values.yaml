@@ -6,16 +6,17 @@ replicaCount: 1
 
 image:
   # uncomment and fill registry name
-  # registry: 
-  name: on-demand-micro-services-deployment-k8s
-  tag: latest
+  # registry:
+  registry: 192.168.3.94:8888
+  name: library/helm-web-api
+  tag: v20190822
   pullPolicy: Always
 
 service:
-  type: LoadBalancer
-  port: 4000
+  type: NodePort
+  port: 37777
 
-namespace: default
+namespace: kube-system
 
 # for the ingress functionallity - the ingress is the controller which exposes the newly deployed service
 # Refer to the docs for more details
@@ -28,7 +29,7 @@ ingress:
 # configuration for the rbac namespaces, service accounts, roles and binding names
 rbac:
   helmServiceAccount: helm
-  helmRole: tiller-user
+  helmRole: cluster-admin
   tillerServiceAccount: tiller
   tillerRoleBindingName: tiller-user-binding
   tillerNamespace: kube-system
