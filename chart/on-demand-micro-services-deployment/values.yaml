@@ -33,3 +33,6 @@ rbac:
   tillerServiceAccount: tiller
   tillerRoleBindingName: tiller-user-binding
   tillerNamespace: kube-system
+
+volumn：
+  configMapName: kube-config-4-helm

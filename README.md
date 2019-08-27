@@ -39,12 +39,26 @@ The solution we propose consists of two parts, both as web servers:
     docker push registryname/on-demand-micro-services-deployment-k8s
     ```
 
+    制作镜像，并镜像推送到harbor仓库
+    ```
+    docker build -t 192.168.3.94:8888/library/helm-web-api:v20180822 .
+    docker push 192.168.3.94:8888/library/helm-web-api:v20180822
+    ```
+
     * Edit the [values.yaml](./chart/on-demand-micro-services-deployment-k8s/values.yaml) file to point to the newly published image and registry
+
+
+3. 创建kubeconfig的configmap
+
+```
+kubectl create configmap kube-config-4-helm --from-file=/root/.kube/config -n kube-system
+```
 
 3. Install the app chart
 
     ```bash
-    helm install chart/on-demand-micro-services-deployment-k8s --name on-demand-micro-services-deployment-k8s --set rbac.create=true
+    cd chart
+    helm install --name on-demand-micro-services-deployment-k8s --set rbac.create=true .
     ```
 
 4. Call on-demand-micro-services-deployment-k8s and install `nginx-ingress-controller`, to expose other helm charts via a single public IP:

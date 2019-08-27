@@ -46,4 +46,4 @@ spec:
       volumes:
       - name: helm-kubeconfig
         configMap:
-          name: kube-config-4-helm
+          name: {{ .Values.volumn.configMapName }}
