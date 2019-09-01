@@ -31,7 +31,7 @@ The solution we propose consists of two parts, both as web servers:
 
     helm init --service-account tiller
     ```
-2. Clone the repository
+2. 获取代码
     * [Build and push](https://docs.docker.com/docker-cloud/builds/push-images/) the image into a docker repository
 
     ```bash
@@ -54,7 +54,9 @@ The solution we propose consists of two parts, both as web servers:
 kubectl create configmap kube-config-4-helm --from-file=/root/.kube/config -n kube-system
 ```
 
-3. Install the app chart
+3. 安装helm chart
+
+注意修改相应的地方
 
     ```bash
     cd chart
